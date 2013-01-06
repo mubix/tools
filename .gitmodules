@@ -13,3 +13,6 @@
 [submodule "sqlmap"]
 	path = sqlmap
 	url = git://github.com/sqlmapproject/sqlmap.git
+[submodule "metassh"]
+	path = metassh
+	url = git://github.com/dirtyfilthy/metassh.git
