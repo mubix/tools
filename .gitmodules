@@ -7,3 +7,6 @@
 [submodule "ettercap"]
 	path = ettercap
 	url = git://github.com/Ettercap/ettercap.git
+[submodule "padbuster"]
+	path = padbuster
+	url = git://github.com/gw0/PadBuster.git
