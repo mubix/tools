@@ -1,0 +1,260 @@
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/archivers/xz/Portfile ports/archivers/xz/Portfile
+--- ports.orig/archivers/xz/Portfile	2012-07-01 06:00:32.000000000 -0700
++++ ports/archivers/xz/Portfile	2012-07-17 16:48:25.000000000 -0700
+@@ -23,9 +23,9 @@
+ checksums       sha1    7dd986aa42e0181cad3af236826f65514d2f7c19 \
+                 rmd160  25463b22fb24156a5d6c62450265ebe1b29e670e
+ 
+-depends_lib     port:libiconv port:gettext
++depends_lib     port:gettext
+ 
+-configure.args  --with-libiconv-prefix=${prefix} --with-libintl-prefix=${prefix}
++configure.args  --with-libintl-prefix=${prefix}
+ 
+ # document that we always need legacy symlinks now that "lzmautils" refers here
+ configure.args-append --enable-lzma-links
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/devel/apr-util/Portfile ports/devel/apr-util/Portfile
+--- ports.orig/devel/apr-util/Portfile	2012-01-31 15:30:28.000000000 -0800
++++ ports/devel/apr-util/Portfile	2012-07-17 16:48:25.000000000 -0700
+@@ -21,13 +21,13 @@
+ 		rmd160	a16ca2c192e82ff811570e84b88f9b6b60141ca6
+ 
+ depends_lib	port:apr port:expat \
+-		port:libiconv port:db46 \
++		port:db46 \
+ 		port:sqlite3
+ 
+ use_parallel_build	yes
+ configure.ccache	no
+ configure.args	--with-apr=${prefix}/bin/apr-1-config --with-expat=${prefix} \
+-		--with-iconv=${prefix} --with-berkeley-db=${prefix}/include:${prefix}/lib/db46 \
++		--with-berkeley-db=${prefix}/include:${prefix}/lib/db46 \
+ 		--without-mysql --without-pgsql --with-sqlite3=${prefix}
+ 
+ test.run	yes
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/devel/atk/Portfile ports/devel/atk/Portfile
+--- ports.orig/devel/atk/Portfile	2012-07-15 14:00:30.000000000 -0700
++++ ports/devel/atk/Portfile	2012-07-17 16:49:52.000000000 -0700
+@@ -29,7 +29,6 @@
+ 
+ depends_lib             path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                         port:gettext \
+-                        port:libiconv \
+                         port:gobject-introspection
+ 
+ configure.args          --enable-static \
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/devel/gettext/Portfile ports/devel/gettext/Portfile
+--- ports.orig/devel/gettext/Portfile	2011-07-25 23:30:20.000000000 -0700
++++ ports/devel/gettext/Portfile	2012-07-17 16:48:25.000000000 -0700
+@@ -46,12 +46,10 @@
+ configure.args-append   --without-git \
+                         --without-cvs
+ 
+-depends_lib             port:libiconv \
+-                        port:ncurses \
++depends_lib             port:ncurses \
+                         port:expat
+ 
+-archcheck.files         lib/libiconv.dylib \
+-                        lib/libncurses.dylib \
++archcheck.files         lib/libncurses.dylib \
+                         lib/libexpat.dylib
+ 
+ test.run                yes
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/devel/glib2/Portfile ports/devel/glib2/Portfile
+--- ports.orig/devel/glib2/Portfile	2012-07-17 03:00:41.000000000 -0700
++++ ports/devel/glib2/Portfile	2012-07-17 16:48:25.000000000 -0700
+@@ -41,13 +41,11 @@
+                             patch-gio_gdbusprivate.c.diff
+ 
+ depends_lib                 port:gettext \
+-                            port:libiconv \
+                             port:zlib \
+                             port:libffi \
+                             path:bin/perl:perl5
+ 
+ archcheck.files             lib/libintl.dylib \
+-                            lib/libiconv.dylib \
+                             lib/libz.dylib \
+                             lib/libffi.dylib
+ 
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/gnome/gtk2/Portfile ports/gnome/gtk2/Portfile
+--- ports.orig/gnome/gtk2/Portfile	2012-06-03 23:00:37.000000000 -0700
++++ ports/gnome/gtk2/Portfile	2012-07-17 16:48:25.000000000 -0700
+@@ -48,10 +48,20 @@
+ #                    port:librsvg
+ 
+ 
+-depends_run         port:shared-mime-info \
+-                    port:hicolor-icon-theme
+-
++# If shared-mime-info is installed it causes GTK+ to use Glib's GIO to
++# do automatic file type guessing and to disable its own internal
++# guessing. The guessing then fails at runtime if the MIME database
++# (/usr/share/mime) isn't present. Avoid using GIO and always use GTK+'s
++# internal guesser.
++# depends_run         port:shared-mime-info
++depends_run         port:hicolor-icon-theme
++
++# Don't have the immodules as loadable modules. This would require
++# running install_name_tool on the .so files to make the libraries they
++# depend on relative to @executable_path, not the MacPorts installation
++# directory.
+ configure.args      --enable-static \
++                    --with-included-immodules \
+                     --disable-glibtest \
+                     --disable-introspection \
+                     gio_can_sniff=yes
+@@ -93,19 +103,6 @@
+     xinstall -d ${destroot}${docdir}
+     xinstall -m 644 -W ${worksrcpath} AUTHORS COPYING HACKING NEWS README \
+         ${destroot}${docdir}
+-
+-    ui_debug "Creating gtk.immodules..."
+-    system "DYLD_LIBRARY_PATH=${destroot}${prefix}/lib \
+-        ${destroot}${prefix}/bin/gtk-query-immodules-2.0 \
+-        ${destroot}${prefix}/lib/gtk-2.0/2.10.0/immodules/*.so \
+-        >${destroot}${prefix}/etc/gtk-2.0/gtk.immodules"
+-    reinplace "s|${destroot}||" ${destroot}${prefix}/etc/gtk-2.0/gtk.immodules
+-}
+-
+-post-activate {
+-    ui_debug "Updating gdk-pixbuf.loaders..."
+-    system "${prefix}/bin/gdk-pixbuf-query-loaders \
+-        >${prefix}/etc/gtk-2.0/gdk-pixbuf.loaders"
+ }
+ 
+ platform darwin 8 {
+@@ -124,7 +121,7 @@
+ }
+ 
+ if {[variant_isset universal]} {
+-    set cups /usr/bin/cups-config
++    set cups /Developer/SDKs/MacOSX10.5.sdk/usr/bin/cups-config
+     if {[info exists universal_sysroot]} {
+         set cups ${universal_sysroot}${cups}
+     }
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/graphics/fontconfig/Portfile ports/graphics/fontconfig/Portfile
+--- ports.orig/graphics/fontconfig/Portfile	2012-05-10 09:00:32.000000000 -0700
++++ ports/graphics/fontconfig/Portfile	2012-07-17 16:48:25.000000000 -0700
+@@ -27,12 +27,10 @@
+ 
+ depends_build               port:pkgconfig
+ 
+-depends_lib                 port:libiconv \
+-                            port:expat \
++depends_lib                 port:expat \
+                             port:freetype
+ 
+-archcheck.files             lib/libiconv.dylib \
+-                            lib/libexpat.dylib \
++archcheck.files             lib/libexpat.dylib \
+                             lib/libfreetype.dylib
+ 
+ if {${os.platform} == "darwin" && ${os.major} < 9} {
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/graphics/gdk-pixbuf2/Portfile ports/graphics/gdk-pixbuf2/Portfile
+--- ports.orig/graphics/gdk-pixbuf2/Portfile	2012-07-15 14:00:30.000000000 -0700
++++ ports/graphics/gdk-pixbuf2/Portfile	2012-07-17 16:52:55.000000000 -0700
+@@ -49,7 +49,12 @@
+     }
+ }
+ 
++# Don't have the GDK image loaders as loadable modules. This would
++# require running install_name_tool on the .so files to make the
++# libraries they depend on relative to @executable_path, not the
++# MacPorts installation directory.
+ configure.args              --with-libjasper \
++                            --with-included-loaders \
+                             --enable-introspection=yes
+ 
+ # The rules enabled by gobject-introspection require GNU make 3.81+, #35202
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/perl/p5-locale-gettext/Portfile ports/perl/p5-locale-gettext/Portfile
+--- ports.orig/perl/p5-locale-gettext/Portfile	2012-07-03 01:00:31.000000000 -0700
++++ ports/perl/p5-locale-gettext/Portfile	2012-07-17 16:48:25.000000000 -0700
+@@ -23,7 +23,7 @@
+                     rmd160 767adfce05b8fe77ddd7d3814951822746cf6e4b
+ 
+ if {${perl5.major} != ""} {
+-depends_lib-append  port:gettext port:libiconv
++depends_lib-append  port:gettext
+ 
+ # The first patch below corrects a typo in the documentation. The last two
+ # correct a bug discovered by the Debian Project; they come from the CPAN RT
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/python/py26-gobject/Portfile ports/python/py26-gobject/Portfile
+--- ports.orig/python/py26-gobject/Portfile	2012-05-31 21:00:40.000000000 -0700
++++ ports/python/py26-gobject/Portfile	2012-07-17 16:48:25.000000000 -0700
+@@ -35,7 +35,6 @@
+ depends_lib     path:${prefix}/lib/pkgconfig/glib-2.0.pc:glib2 \
+                 port:libxslt \
+                 port:gettext \
+-                port:libiconv \
+                 port:libffi \
+                 port:python26
+ 
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/python/py27-libxml2/files/patch-setup.py.diff ports/python/py27-libxml2/files/patch-setup.py.diff
+--- ports.orig/python/py27-libxml2/files/patch-setup.py.diff	2010-11-29 21:30:48.000000000 -0800
++++ ports/python/py27-libxml2/files/patch-setup.py.diff	2012-07-17 16:48:25.000000000 -0700
+@@ -1,6 +1,6 @@
+ --- setup.py.orig	2007-10-11 15:24:20.000000000 +0200
+ +++ setup.py	2007-10-11 15:24:54.000000000 +0200
+-@@ -56,11 +56,7 @@
++@@ -56,11 +56,8 @@
+  # - iconv.h 
+  # - libxslt/xsltconfig.h
+  includes_dir = [
+@@ -10,6 +10,7 @@
+ -os.path.join(ROOT,'include'),
+ -HOME
+ +"@PREFIX@/include",
+++"/Developer/SDKs/MacOSX10.5.sdk/usr/include",
+  ];
+  
+  xml_includes=""
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/textproc/help2man/Portfile ports/textproc/help2man/Portfile
+--- ports.orig/textproc/help2man/Portfile	2012-06-06 12:30:34.000000000 -0700
++++ ports/textproc/help2man/Portfile	2012-07-17 16:48:25.000000000 -0700
+@@ -21,7 +21,7 @@
+                     sha256  f7c85b9af84a87d7da912b62dadf426118841750ed1e4598787a54fddaf82b9c
+ 
+ depends_lib		port:perl5.12 port:p5.12-locale-gettext \
+-				port:gettext port:libiconv
++				port:gettext
+ 
+ configure.perl	${prefix}/bin/perl5.12
+ 
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/textproc/libxml2/Portfile ports/textproc/libxml2/Portfile
+--- ports.orig/textproc/libxml2/Portfile	2012-03-22 15:30:30.000000000 -0700
++++ ports/textproc/libxml2/Portfile	2012-07-17 16:48:25.000000000 -0700
+@@ -22,7 +22,7 @@
+                     sha1    859dd535edbb851cc15b64740ee06551a7a17d40 \
+                     rmd160  30709622cfe3e2175e73d6701b7e19a25ab5ac47
+ 
+-depends_lib           port:libiconv port:zlib
++depends_lib           port:zlib
+ 
+ post-extract {
+     reinplace -locale C "s|/etc|${prefix}/etc|g" \
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/textproc/libxslt/Portfile ports/textproc/libxslt/Portfile
+--- ports.orig/textproc/libxslt/Portfile	2011-07-07 08:30:19.000000000 -0700
++++ ports/textproc/libxslt/Portfile	2012-07-17 16:48:25.000000000 -0700
+@@ -30,8 +30,7 @@
+                 sha1    69f74df8228b504a87e2b257c2d5238281c65154 \
+                 rmd160  fc7630352ae5772d25fc8132a373d477fb8d8d5f
+ 
+-depends_lib     port:libiconv \
+-                port:libxml2 \
++depends_lib     port:libxml2 \
+                 port:zlib
+ 
+ configure.args  --mandir=${prefix}/share/man \
+diff --unidirectional-new-file -ru -x 'PortIndex*' ports.orig/x11/pango/Portfile ports/x11/pango/Portfile
+--- ports.orig/x11/pango/Portfile	2012-07-15 14:00:30.000000000 -0700
++++ ports/x11/pango/Portfile	2012-07-17 16:53:23.000000000 -0700
+@@ -97,6 +97,7 @@
+ }
+ 
+ configure.args          --enable-static \
++                        --with-included-modules \
+                         --enable-introspection \
+                         --disable-silent-rules \
+                         --without-x
