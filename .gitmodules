@@ -4,3 +4,6 @@
 [submodule "nikto"]
 	path = nikto
 	url = git://github.com/sullo/nikto.git
+[submodule "ettercap"]
+	path = ettercap
+	url = git://github.com/Ettercap/ettercap.git
