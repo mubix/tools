@@ -22,3 +22,6 @@
 [submodule "JohnTheRipper"]
 	path = JohnTheRipper
 	url = git://github.com/magnumripper/JohnTheRipper.git
+[submodule "beef"]
+	path = beef
+	url = git://github.com/beefproject/beef.git
