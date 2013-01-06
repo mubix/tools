@@ -16,3 +16,6 @@
 [submodule "metassh"]
 	path = metassh
 	url = git://github.com/dirtyfilthy/metassh.git
+[submodule "social-engineer-toolkit"]
+	path = social-engineer-toolkit
+	url = git://github.com/trustedsec/social-engineer-toolkit.git
