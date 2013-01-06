@@ -1,3 +1,6 @@
 [submodule "metasploit-framework"]
 	path = metasploit-framework
 	url = git://github.com/rapid7/metasploit-framework.git
+[submodule "nikto"]
+	path = nikto
+	url = git://github.com/sullo/nikto.git
