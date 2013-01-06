@@ -10,3 +10,6 @@
 [submodule "padbuster"]
 	path = padbuster
 	url = git://github.com/gw0/PadBuster.git
+[submodule "sqlmap"]
+	path = sqlmap
+	url = git://github.com/sqlmapproject/sqlmap.git
