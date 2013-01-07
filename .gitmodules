@@ -43,3 +43,6 @@
 [submodule "sptoolkit"]
 	path = sptoolkit
 	url = git://github.com/sptoolkit/sptoolkit.git
+[submodule "responder"]
+	path = responder
+	url = git://github.com/SpiderLabs/Responder.git
