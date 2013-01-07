@@ -25,3 +25,6 @@
 [submodule "beef"]
 	path = beef
 	url = git://github.com/beefproject/beef.git
+[submodule "scythe"]
+	path = scythe
+	url = git://github.com/ChrisJohnRiley/Scythe.git
