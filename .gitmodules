@@ -28,3 +28,6 @@
 [submodule "scythe"]
 	path = scythe
 	url = git://github.com/ChrisJohnRiley/Scythe.git
+[submodule "easy-creds"]
+	path = easy-creds
+	url = git://github.com/brav0hax/easy-creds.git
