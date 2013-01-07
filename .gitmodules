@@ -37,3 +37,6 @@
 [submodule "post-exploitation"]
 	path = post-exploitation
 	url = git://github.com/mubix/post-exploitation.git
+[submodule "q"]
+	path = q
+	url = git://github.com/mubix/q.git
