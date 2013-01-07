@@ -31,3 +31,6 @@
 [submodule "easy-creds"]
 	path = easy-creds
 	url = git://github.com/brav0hax/easy-creds.git
+[submodule "smbexec"]
+	path = smbexec
+	url = git://github.com/brav0hax/smbexec.git
