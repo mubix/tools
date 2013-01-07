@@ -40,3 +40,6 @@
 [submodule "q"]
 	path = q
 	url = git://github.com/mubix/q.git
+[submodule "sptoolkit"]
+	path = sptoolkit
+	url = git://github.com/sptoolkit/sptoolkit.git
