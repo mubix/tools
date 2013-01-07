@@ -34,3 +34,6 @@
 [submodule "smbexec"]
 	path = smbexec
 	url = git://github.com/brav0hax/smbexec.git
+[submodule "post-exploitation"]
+	path = post-exploitation
+	url = git://github.com/mubix/post-exploitation.git
