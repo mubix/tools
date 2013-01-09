@@ -43,3 +43,6 @@
 [submodule "responder"]
 	path = responder
 	url = git://github.com/SpiderLabs/Responder.git
+[submodule "social-engineer-toolkit"]
+	path = social-engineer-toolkit
+	url = git://github.com/trustedsec/social-engineer-toolkit.git
