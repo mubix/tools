@@ -53,7 +53,7 @@
  *                                                                         *
  ***************************************************************************/
 
-/* $Id: engine_poll.c 30470 2013-01-07 21:54:07Z henri $ */
+/* $Id$ */
 
 #ifndef WIN32
 /* Allow the use of POLLRDHUP, if available. */

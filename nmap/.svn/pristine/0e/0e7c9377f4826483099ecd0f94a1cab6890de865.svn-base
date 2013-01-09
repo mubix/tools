@@ -87,7 +87,7 @@
  *                                                                         *
  ***************************************************************************/
 
-/* $Id: nbase_addrset.c 30476 2013-01-08 04:37:34Z david $ */
+/* $Id$ */
 
 /* The code in this file has tests in the file ncat/tests/test-addrset.sh. Run that
    program after making any big changes. Also, please add tests for any new
