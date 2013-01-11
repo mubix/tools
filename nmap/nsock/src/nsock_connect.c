@@ -53,7 +53,7 @@
  *                                                                         *
  ***************************************************************************/
 
-/* $Id: nsock_connect.c 30453 2012-12-29 15:59:59Z henri $ */
+/* $Id: nsock_connect.c 30487 2013-01-10 19:19:15Z henri $ */
 
 #include "nsock.h"
 #include "nsock_internal.h"
@@ -88,7 +88,7 @@ static int nsock_make_socket(mspool *ms, msiod *iod, int family, int type, int p
 
     rc = setsockopt(iod->sd, SOL_SOCKET, SO_REUSEADDR, (const char *)&one, sizeof(one));
     if (rc == -1)
-      nsock_log_error(ms, "Setting of SO_REUSEADDR failed (#%d): %s", iod->id,
+      nsock_log_error(ms, "Setting of SO_REUSEADDR failed (#%li): %s", iod->id,
                       strerror(errno));
 
     rc = bind(iod->sd, (struct sockaddr *)&iod->local, (int) iod->locallen);
