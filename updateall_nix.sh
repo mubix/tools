@@ -4,6 +4,7 @@
 cd nmap
 svn up
 cd ..
+git add ./nmap/*
 
 # Update submodules
 git submodule foreach git checkout master
