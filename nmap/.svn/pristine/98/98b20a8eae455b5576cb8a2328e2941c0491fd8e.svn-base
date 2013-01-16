@@ -1,4 +1,4 @@
-# Nmap Changelog ($Id: CHANGELOG 30506 2013-01-16 00:29:06Z david $); -*-text-*-
+# Nmap Changelog ($Id$); -*-text-*-
 
 o [NSE] Added ventrilo-info by Marin Maržić. This gets information
   from a Ventrilo VoIP server.
