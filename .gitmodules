@@ -46,3 +46,6 @@
 [submodule "social-engineer-toolkit"]
 	path = social-engineer-toolkit
 	url = git://github.com/trustedsec/social-engineer-toolkit.git
+[submodule "mssqlpostexploit"]
+	path = mssqlpostexploit
+	url = https://git01.codeplex.com/mssqlpostexploit
