@@ -1,4 +1,4 @@
-# Nmap Changelog ($Id: CHANGELOG 30528 2013-01-19 19:00:11Z djalal $); -*-text-*-
+# Nmap Changelog ($Id$); -*-text-*-
 
 o [NSE] Made the vulnerability library able to preserve vulnerability
   information across multiple ports of the same host. The bug was
