@@ -1,4 +1,4 @@
-# Nmap Changelog ($Id: CHANGELOG 30549 2013-01-24 18:04:43Z david $); -*-text-*-
+# Nmap Changelog ($Id$); -*-text-*-
 
 o [NSE] Fixed various NSEDoc bugs found by David Matousek.
 

@@ -55,7 +55,7 @@
  *                                                                         *
  ***************************************************************************/
 
-/* $Id: nsock_internal.h 30545 2013-01-23 22:06:40Z henri $ */
+/* $Id$ */
 
 #ifndef NSOCK_INTERNAL_H
 #define NSOCK_INTERNAL_H
