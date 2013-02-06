@@ -1,4 +1,4 @@
-# Nmap Changelog ($Id: CHANGELOG 30579 2013-02-01 05:02:00Z david $); -*-text-*-
+# Nmap Changelog ($Id$); -*-text-*-
 
 o Routes are now sorted to prefer those with a lower metric. Retrieval
   of metrics is supported only on Linux and Windows. [David Fifield]

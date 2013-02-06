@@ -1,4 +1,4 @@
-$Id: NMAP_MODIFICATIONS 30575 2013-02-01 05:01:56Z david $
+$Id$
 
 This is Dug Song's excellent Libdnet networking library version 1.12.
 It has been stripped down for inclusion within Nmap and modified as follows:
@@ -59,7 +59,7 @@ Index: configure.in
 --- configure.in	(revision 6317)
 +++ configure.in	(working copy)
 @@ -6,8 +6,6 @@
- dnl $Id: NMAP_MODIFICATIONS 30575 2013-02-01 05:01:56Z david $
+ dnl $Id$
  
  AC_INIT(include/dnet.h)
 -AC_CONFIG_AUX_DIR(config)
